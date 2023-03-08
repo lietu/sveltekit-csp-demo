@@ -1,38 +1,26 @@
-# create-svelte
+# SvelteKit CSP bug repro
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Steps to reproduce in isolation
 
-## Creating a project
+1) `npm create svelte@latest my-app`
+2) `cd my-app`
+3) `npm install`
+4) `npm add @svelte/adapter-node`
+5) Edit `svelte.config.js`
+6) Replace auto adapter with `adapter-node`
+6) Add `kit.csp.directives` for `style-src` with `'unsafe-inline'`
+7) Add `kit.inlineStyleThreshold` with a value of e.g. `5 * 1024`
+8) `npm run build`
+9) `node build`
+10) Open the webpage (`http://localhost:3000`) in your browser
+11) Check console for errors
 
-If you're seeing this, you've probably already done this step. Congrats!
+Steps to reproduce in this repo
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+1) `git clone https://github.com/lietu/sveltekit-csp-demo`
+2) `cd sveltekit-csp-demo`
+3) `npm install`
+4) `npm run build`
+5) `node build`
+6) Open the webpage (`http://localhost:3000`) in your browser
+7) Check console for errors
